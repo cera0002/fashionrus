@@ -1,0 +1,27 @@
+---
+//@ts-nocheck
+import Layout from "../layouts/Layout.astro";
+import ProductCard from "../components/ProductCard.astro";
+const fashionUrl = "https://kea-alt-del.dk/t7/api/products?limit=20";
+const data = await fetch(fashionUrl).then((res) => res.json());
+console.log(data);
+---
+
+<Layout>
+  <h1>Productlist</h1>
+  <p>Her er en liste over produkter</p>
+  <main>
+    {data.map((product) => <ProductCard {product} />)}
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+  .productImage {
+    max-width: 100%;
+  }
+</style>
